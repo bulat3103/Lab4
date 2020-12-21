@@ -1,5 +1,6 @@
 package placesPackage;
 
+import enums.PlaceOrientation;
 import enums.Places;
 import exceptions.InvalidParameterException;
 import materialObjects.Furniture;
@@ -11,17 +12,19 @@ public abstract class APlace {
     private Places typePlace;
     private int deep;
     protected ArrayList<Furniture> furn = new ArrayList<>();
+    private final PlaceOrientation placeOrientation;
 
-    public APlace() {
-        this.typePlace = Places.PIT;
-        this.deep = 10;
-    }
-
-    public APlace(Places typePlace, int deep) {
+    public APlace(Places typePlace, int deep, PlaceOrientation placeOrientation) {
         if (typePlace == null) throw new InvalidParameterException("Передается Null в typePlace");
+        if (placeOrientation == null) throw new InvalidParameterException("Передается Null в placeOrientation");
         if (deep <= 0) throw new InvalidParameterException("Глубина не может быть отрицательной");
         this.typePlace = typePlace;
         this.deep = deep;
+        this.placeOrientation = placeOrientation;
+    }
+
+    public PlaceOrientation getPlaceOrientation() {
+        return placeOrientation;
     }
 
     public int getDeep() {

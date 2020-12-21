@@ -33,11 +33,6 @@ public abstract class Human implements iHuman {
         this.IStrategy = IStrategy;
     }
 
-
-    public abstract void walk(APlace place);
-
-    public abstract void say(String text);
-
     public abstract ArrayList<Furniture> Identificate(Direction dir);
 
     public String getName() {

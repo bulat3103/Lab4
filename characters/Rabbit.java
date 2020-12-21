@@ -1,6 +1,7 @@
 package characters;
 
 import enums.Colors;
+import exceptions.InvalidParameterException;
 import placesPackage.APlace;
 
 public class Rabbit extends Animal {
@@ -15,6 +16,8 @@ public class Rabbit extends Animal {
 
     @Override
     public void run(APlace where) {
-        System.out.println("Кролик " + this.name + " бежит в " + where.getTypePlace());
+        if (where == null)throw new InvalidParameterException("Передается Null в where");
+        super.place = where;
+        System.out.println("Кролик " + super.name + " бежит в " + where.toString());
     }
 }

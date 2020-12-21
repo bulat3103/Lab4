@@ -14,6 +14,7 @@ public class Furniture{
     private ArrayList<Subject> subjects;
 
     private Furniture(Builder builder) {
+        if (builder == null) throw new InvalidParameterException("Передается Null в builder");
         this.type = builder.type;
         this.dir = builder.dir;
         this.deepCoordinat = builder.deepCoordinat;
@@ -55,6 +56,7 @@ public class Furniture{
     }
 
     public void addSubject(Subject sbj) throws NotPutException {
+        if (sbj == null) throw new InvalidParameterException("Передается Null в Subject");
         if (this.type == Thing.PICTURE || this.type == Thing.MAP) {
             throw new NotPutException("Сюда нельзя положить вещи");
         }

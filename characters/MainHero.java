@@ -5,7 +5,7 @@ import exceptions.InvalidParameterException;
 import exceptions.NotPutException;
 import exceptions.NotTakeException;
 import interfaces.IdentificationStrategy;
-import interfaces.iFlyable;
+import interfaces.Moveable;
 import materialObjects.Furniture;
 import materialObjects.Subject;
 import placesPackage.APlace;
@@ -13,7 +13,7 @@ import placesPackage.APlace;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class MainHero extends Human implements iFlyable {
+public class MainHero extends Human implements Moveable {
     private double currentCoordinat = 0;
     private double speed;
     private APlace place;
@@ -26,24 +26,19 @@ public class MainHero extends Human implements iFlyable {
     }
 
     @Override
-    public void Fly() {
+    public void Move() {
         this.currentCoordinat += this.speed;
         if (this.currentCoordinat >= this.place.getDeep()) {
-            System.out.println("Алиса достигла дна " + place.getTypePlace().toString() + " и открыла волшебную дверь");
+            System.out.printf("%s достигла конца. Дальше ее ждет неизвестность.", super.getName());
+            System.out.println();
         } else {
-            System.out.println(super.getName() + " летит со скоростью " + this.speed + " м/с. Место: " + place.getTypePlace().toString());
-            System.out.println("Текущая координата: " + this.currentCoordinat);
+            System.out.printf("%s %s со скоростью %s м/с. Место: %s", super.getName(), place.getPlaceOrientation().toString(), this.speed, place.getTypePlace().toString());
+            System.out.println();
+            System.out.printf("Текущая координата: %s", this.currentCoordinat);
+            System.out.println();
         }
     }
 
-    public void crawl() {
-        while (this.currentCoordinat < this.place.getDeep()) {
-            System.out.println("Алиса ползет в " + place.getTypePlace().toString());
-        }
-        System.out.println(place.getTypePlace().toString() + " закончилась");
-    }
-
-    @Override
     public void say(String text) {
         if (text == null)throw new InvalidParameterException("Передается Null в text");
         System.out.println(text);
@@ -51,7 +46,7 @@ public class MainHero extends Human implements iFlyable {
 
     public void take(Subject sbj) throws NotTakeException {
         if (sbj == null)throw new InvalidParameterException("Передается Null в sbj");
-        if (this.subject == null) throw new NotTakeException(super.name + " уже взяла объект");
+        if (this.subject != null) throw new NotTakeException(super.name + " уже взяла объект");
         this.subject = sbj;
         System.out.println(super.name + " взяла " + sbj.toString());
         if (!this.subject.getTitle().equals("")) {
@@ -77,13 +72,6 @@ public class MainHero extends Human implements iFlyable {
     }
 
     @Override
-    public void walk(APlace place) {
-        if (place == null)throw new InvalidParameterException("Передается Null в place");
-        System.out.println(super.name + " идет по " + place.toString());
-    }
-
-
-    @Override
     public ArrayList<Furniture> Identificate(Direction dir) {
         if (dir == null)throw new InvalidParameterException("Передается Null в dir");
         return IStrategy.Identificate(dir, place, this.currentCoordinat);
@@ -91,6 +79,7 @@ public class MainHero extends Human implements iFlyable {
 
     public void lookFor(Animal animal) {
         if (animal == null)throw new InvalidParameterException("Передается Null в animal");
+        this.place = animal.place;
         System.out.println(super.name + " преследует " + animal.name);
     }
 
@@ -100,6 +89,10 @@ public class MainHero extends Human implements iFlyable {
 
     public double getSpeed() {
         return speed;
+    }
+
+    public void setCurrentCoordinat(double currentCoordinat) {
+        this.currentCoordinat = currentCoordinat;
     }
 
     public void setSpeed(double speed) {

@@ -9,6 +9,7 @@ import java.util.Objects;
 public abstract class Animal {
     protected Colors color;
     protected String name;
+    protected APlace place;
 
     public Animal(Colors color, String name) {
         if (color == null)throw new InvalidParameterException("Передается Null в color");
@@ -26,6 +27,15 @@ public abstract class Animal {
     public void setColor(Colors color) {
         if (color == null)throw new InvalidParameterException("Передается Null в color");
         this.color = color;
+    }
+
+    public APlace getPlace() {
+        return place;
+    }
+
+    public void setPlace(APlace place) {
+        if (place == null)throw new InvalidParameterException("Передается Null в place");
+        this.place = place;
     }
 
     public String getName() {

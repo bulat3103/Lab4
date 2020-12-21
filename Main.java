@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args)throws NotPutException, NotTakeException {
-        Place nora = new Place(Places.BURROW, 10);
+        Place nora = new Place(Places.BURROW, 10, PlaceOrientation.HORIZONTAL);
         Rabbit rabbit = new Rabbit(Colors.WHITE, "Тиша");
         rabbit.run(nora);
         IdentificationStrategy strategy = (dir, place, currentCoordinat) -> {
@@ -33,11 +33,14 @@ public class Main {
         };
         MainHero Alice = new MainHero("Алиса", 20, Sex.GIRL, 1.0, strategy);
         Alice.lookFor(rabbit);
-        Alice.setPlace(nora);
-        Alice.walk(nora);
-        Alice.crawl();
-        Place pit = new Place(Places.PIT, 12);
+        Alice.Move();
+        while (Alice.getCurrentCoordinat() < nora.getDeep()) {
+            Alice.Move();
+            if (Alice.getCurrentCoordinat() >= nora.getDeep()) break;
+        }
+        Place pit = new Place(Places.PIT, 12, PlaceOrientation.VERTICAL);
         Alice.setPlace(pit);
+        Alice.setCurrentCoordinat(0);
         for (int i = 1; i <= pit.getDeep(); i++) {
             for (Direction dir : Direction.values()) {
                 Thing rnd = Thing.randomThing();
@@ -62,7 +65,7 @@ public class Main {
             }
         }
         while (Alice.getCurrentCoordinat() < pit.getDeep()) {
-            Alice.Fly();
+            Alice.Move();
             if (Alice.getCurrentCoordinat() >= pit.getDeep()) break;
             Direction rndDirection = Direction.randomDirection();
             Alice.Look(rndDirection);

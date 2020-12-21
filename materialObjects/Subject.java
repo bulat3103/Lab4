@@ -11,6 +11,7 @@ public class Subject{
     private final String title;
 
     private Subject(Builder builder) {
+        if (builder == null) throw new InvalidParameterException("Передается Null в builder");
         this.type = builder.type;
         this.title = builder.title;
     }
