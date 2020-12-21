@@ -1,6 +1,7 @@
 package characters;
 
 import enums.Colors;
+import exceptions.InvalidParameterException;
 import placesPackage.APlace;
 
 import java.util.Objects;
@@ -10,6 +11,8 @@ public abstract class Animal {
     protected String name;
 
     public Animal(Colors color, String name) {
+        if (color == null)throw new InvalidParameterException("Передается Null в color");
+        if (name == null)throw new InvalidParameterException("Передается Null в name");
         this.color = color;
         this.name = name;
     }
@@ -21,6 +24,7 @@ public abstract class Animal {
     }
 
     public void setColor(Colors color) {
+        if (color == null)throw new InvalidParameterException("Передается Null в color");
         this.color = color;
     }
 
@@ -29,6 +33,7 @@ public abstract class Animal {
     }
 
     public void setName(String name) {
+        if (name == null)throw new InvalidParameterException("Передается Null в name");
         this.name = name;
     }
 

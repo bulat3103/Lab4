@@ -27,11 +27,13 @@ public class Furniture{
         private ArrayList<Subject> subjects = null;
 
         public Builder type(Thing type) {
+            if (type == null)throw new InvalidParameterException("Передается Null в type");
             this.type = type;
             return this;
         }
 
         public Builder dir(Direction dir) {
+            if (dir == null)throw new InvalidParameterException("Передается Null в dir");
             this.dir = dir;
             return this;
         }

@@ -2,6 +2,7 @@ package materialObjects;
 
 import enums.SubjectContent;
 import enums.SubjectType;
+import exceptions.InvalidParameterException;
 
 import java.util.Objects;
 
@@ -19,11 +20,13 @@ public class Subject{
         private String title;
 
         public Builder type(SubjectType type) {
+            if (type == null) throw new InvalidParameterException("Передается Null в type");
             this.type = type;
             return this;
         }
 
         public Builder title(String title) {
+            if (title == null) throw new InvalidParameterException("Передается Null в title");
             this.title = title;
             return this;
         }

@@ -35,6 +35,7 @@ public class Main {
         Alice.lookFor(rabbit);
         Alice.setPlace(nora);
         Alice.walk(nora);
+        Alice.crawl();
         Place pit = new Place(Places.PIT, 12);
         Alice.setPlace(pit);
         for (int i = 1; i <= pit.getDeep(); i++) {

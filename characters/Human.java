@@ -25,6 +25,8 @@ public abstract class Human implements iHuman {
     public Human(String name, int age, Sex sex, IdentificationStrategy IStrategy) {
         if (age < 0) throw new InvalidParameterException("Возраст может быть только положительным числом");
         if (name == null) throw new InvalidParameterException("Полю Name пытаются передать значение Null");
+        if (IStrategy == null)throw new InvalidParameterException("Передается Null в IStrategy");
+        if (sex == null)throw new InvalidParameterException("Передается Null в sex");
         this.name = name;
         this.age = age;
         this.sex = sex;
@@ -47,6 +49,7 @@ public abstract class Human implements iHuman {
     }
 
     public void setIStrategy(IdentificationStrategy iStrategy) {
+        if (IStrategy == null)throw new InvalidParameterException("Передается Null в IStrategy");
         this.IStrategy = iStrategy;
     }
 

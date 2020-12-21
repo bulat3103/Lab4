@@ -1,6 +1,7 @@
 package placesPackage;
 
 import enums.Places;
+import exceptions.InvalidParameterException;
 import materialObjects.Furniture;
 
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ public abstract class APlace {
     }
 
     public APlace(Places typePlace, int deep) {
+        if (typePlace == null) throw new InvalidParameterException("Передается Null в typePlace");
+        if (deep <= 0) throw new InvalidParameterException("Глубина не может быть отрицательной");
         this.typePlace = typePlace;
         this.deep = deep;
     }
